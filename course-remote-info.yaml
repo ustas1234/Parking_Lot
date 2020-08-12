@@ -112,6 +112,16 @@ topics:
     theory_id: 7770
   - title: Overriding functions
     theory_id: 7884
+  - title: What is an exception
+    theory_id: 7243
+  - title: Taming exceptions
+    theory_id: 7601
+  - title: Nullable and non-nullable types
+    theory_id: 7613
+  - title: Null safety
+    theory_id: 7619
+  - title: Type system
+    theory_id: 9689
   - title: toString()
     theory_id: 10193
   - title: Data class

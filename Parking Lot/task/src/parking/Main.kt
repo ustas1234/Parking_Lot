@@ -26,6 +26,8 @@ class ParkingLot {
 
     fun carLeaving() {
         this.state = States.FREE
+        this.regNum = "null"
+        this.color = "null"
     }
 
 
@@ -43,6 +45,9 @@ fun main() {
 
         if (parkingArea.isNotEmpty() || uInput[0] == "create" || uInput[0] == "exit") {
             when (uInput[0]) {
+                "reg_by_color" -> regByColor(uInput[1])
+                "spot_by_color" -> spotByColor(uInput[1])
+                "spot_by_reg" -> spotByReg(uInput[1])
                 "status" -> viewStatusOfParkingArea()
                 "create" -> {
                     createParkingArea(uInput[1].toInt())
@@ -52,7 +57,7 @@ fun main() {
                     if (checkForFreeSpot()) {
                         val numOfFreeSpot = firstFreeSpot()
                         //parkingArea[numOfFreeSpot].carGoing(uInput[1], uInput[2])
-                        println(parkingArea[numOfFreeSpot].carGoing(uInput[1], uInput[2]) + " in spot ${numOfFreeSpot + 1}.")
+                        println(parkingArea[numOfFreeSpot].carGoing(uInput[1], uInput[2].toLowerCase()) + " in spot ${numOfFreeSpot + 1}.")
 
                     } else println("Sorry, the parking lot is full.")
 
@@ -67,6 +72,42 @@ fun main() {
         } else println("Sorry, a parking lot has not been created.")
 
     } while (uInput[0] != "exit")
+}
+
+fun spotByReg(s: String) {
+    var result = "No cars with registration number $s were found."
+    for (i in parkingArea.indices) {
+        if (parkingArea[i].regNum == s) {
+            if (result == "No cars with registration number $s were found.") {
+                result = (i + 1).toString()
+            } else result += ", ${i + 1}"
+        }
+    }
+    println(result)
+}
+
+fun spotByColor(s: String) {
+    var result = "No cars with color $s were found."
+    for (i in parkingArea.indices) {
+        if (parkingArea[i].color == s.toLowerCase()) {
+            if (result == "No cars with color $s were found.") {
+                result = (i + 1).toString()
+            } else result += ", ${i + 1}"
+        }
+    }
+    println(result)
+}
+
+fun regByColor(s: String) {
+    var result = "No cars with color $s were found."
+    for (i in parkingArea.indices) {
+        if (parkingArea[i].color == s.toLowerCase()) {
+            if (result == "No cars with color $s were found.") {
+                result = parkingArea[i].regNum
+            } else result += ", ${parkingArea[i].regNum}"
+        }
+    }
+    println(result)
 }
 
 fun viewStatusOfParkingArea() {
